@@ -6,7 +6,8 @@ TARIFICADOR de Assegurançes SAFECAR
 
 int main () {
     char respostaVehicle;
-    int edat, opcioMotor;
+    int edat, opcioMotor, anyFabricacio, vehicleAntic;
+    int anyActual = 2025;
     int resultat;
     printf("**********************************************\n");
     printf("****** TARIFICADOR ASSEGURANCES SAFECAR ****** \n");
@@ -25,7 +26,7 @@ int main () {
     //Bucle per comprobar que la edat de l'usuari sigui correcta i no un valor no desitjat
     printf("-Edat conductor (18-80): ");
     do {
-        resultat = scanf(" %i", &edat);
+        resultat = scanf(" %d", &edat);
         if (resultat == 0) {
         while(getchar() != '\n');
         edat = 0;
@@ -41,11 +42,31 @@ int main () {
     printf("3- Elèctric \n");
     do {
         printf("Escull la opció: 1, 2 o 3: ");
-        resultat = scanf(" %i", &opcioMotor);
+        resultat = scanf(" %d", &opcioMotor);
          if (resultat == 0) {
         while(getchar() != '\n');
         opcioMotor = 0;
         }
     } while (opcioMotor < 1 || opcioMotor > 3);
+    // Validem l'any de fabricació del vehicle
+    printf("-Any de fabricació del vehicle (1970-2025): ");
+    do
+    {
+        resultat = scanf(" %d", &anyFabricacio);
+        if (resultat == 0)
+        {
+           while (getchar() != '\n');
+           anyFabricacio = 0;          
+        }
+        
+        if(anyFabricacio < 1970 || anyFabricacio > 2025) {
+            printf("Introdueix un any entre 1970 i 2025: ");
+        }
+    } while (anyFabricacio < 1970 || anyFabricacio > 2025);
+    /*
+    Ara hem de saber que si el vehicle té més de 10 anys de fabricació
+    llavors no mostra el preu de tot risc i aplica un càrrec del 10% del preu base.
+    */
+   vehicleAntic = (anyActual-anyFabricacio) >10 ;
     return 0;
 }
